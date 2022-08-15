@@ -12,7 +12,7 @@ class AppTextStyles {
   );
 
   static TextStyle body = const TextStyle(
-    fontSize: 13,
+    fontSize: 14,
     color: Colors.grey,
   );
 }

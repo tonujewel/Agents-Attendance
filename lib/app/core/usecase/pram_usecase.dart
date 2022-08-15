@@ -1,3 +1,3 @@
-abstract class ParamUseCase<Type, int> {
-  Future<Type> execute(int params);
+abstract class ParamUseCase<Type, Params> {
+  Future<Type> execute(Params params);
 }

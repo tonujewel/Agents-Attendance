@@ -37,6 +37,8 @@ dependencies:
   json_annotation: ^4.6.0
   tuple: ^2.0.0
   get: ^4.6.5
+  location: ^4.4.0
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
+import 'package:agents_attendance/presentation/controller/attendance/attendance_binding.dart';
 import 'package:agents_attendance/presentation/controller/shop/shop_controller.dart';
+import 'package:agents_attendance/presentation/pages/attendance_page/attendance_page.dart';
 import 'package:agents_attendance/presentation/pages/home_page/shop_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,9 @@ class HomePage extends GetView<ShopController> {
       init: controller,
       initState: (state) {
         controller.fetchData();
+        _scrollController.addListener(() {
+          _scrollListener();
+        });
       },
       didUpdateWidget: (old, newState) {
         _scrollController.addListener(_scrollListener);
@@ -22,30 +26,30 @@ class HomePage extends GetView<ShopController> {
       },
       builder: (_) {
         return Scaffold(
-          appBar: const CupertinoNavigationBar(
-            middle: Text('Shop List'),
-          ),
-          body: ListView.builder(
-            controller: _scrollController,
-            itemCount: controller.shops.length,
-            itemBuilder: (context, index) {
-              final article = controller.shops[index];
-              return GestureDetector(
-                onTap: () {
-                  //  Get.to(() => DetailPage(article: article));
-                },
-                child: ShopItem(shop: article),
-              );
-            },
-          ),
-        );
+            appBar: AppBar(
+              title: const Text('Shop List'),
+            ),
+            body: ListView.builder(
+              padding: const EdgeInsets.all(16.0),
+              controller: _scrollController,
+              itemCount: controller.shops.length,
+              itemBuilder: (context, index) {
+                final shopData = controller.shops[index];
+                return GestureDetector(
+                  onTap: () {
+                      AttendanceBindings().dependencies();
+                    Get.to(() => AttendancePage(shop: shopData));
+                  },
+                  child: ShopItem(shop: shopData),
+                );
+              },
+            ));
       },
     );
   }
 
   void _scrollListener() {
     if (_scrollController.position.extentAfter < 500) {
-    
       controller.loadMore();
     }
   }

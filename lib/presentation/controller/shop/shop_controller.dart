@@ -23,11 +23,10 @@ class ShopController extends GetxController {
   }
 
   loadMore() async {
-    if (_isLoadMore) return;
+    if (!_isLoadMore) return;
     _isLoadMore = true;
     _currentPage += 1;
     final newPaging = await _fetchShopUseCase.execute(_currentPage);
     shops.addAll(newPaging.shopList);
-   
   }
 }
