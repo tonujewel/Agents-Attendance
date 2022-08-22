@@ -22,7 +22,7 @@ class ShopApi implements APIRequestRepresentable {
   HTTPMethod get method => HTTPMethod.get;
 
   @override
-  String get path => "/api/stores";
+  String get path => "/api/stores?page=$pageNumber";
 
   @override
   Map<String, String>? get query => null;

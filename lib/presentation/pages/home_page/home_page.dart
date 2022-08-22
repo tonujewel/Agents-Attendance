@@ -7,23 +7,23 @@ import 'package:get/get.dart';
 
 class HomePage extends GetView<ShopController> {
   HomePage({Key? key}) : super(key: key);
-  final _scrollController = ScrollController();
+  
   @override
   Widget build(BuildContext context) {
     return GetX(
       init: controller,
-      initState: (state) {
-        controller.fetchData();
-        _scrollController.addListener(() {
-          _scrollListener();
-        });
-      },
-      didUpdateWidget: (old, newState) {
-        _scrollController.addListener(_scrollListener);
-      },
-      dispose: (state) {
-        _scrollController.removeListener(_scrollListener);
-      },
+      // initState: (state) {
+      //   controller.fetchData();
+      //   _scrollController.addListener(() {
+      //     _scrollListener();
+      //   });
+      // },
+      // didUpdateWidget: (old, newState) {
+      //   _scrollController.addListener(_scrollListener);
+      // },
+      // dispose: (state) {
+      //   _scrollController.removeListener(_scrollListener);
+      // },
       builder: (_) {
         return Scaffold(
             appBar: AppBar(
@@ -31,13 +31,13 @@ class HomePage extends GetView<ShopController> {
             ),
             body: ListView.builder(
               padding: const EdgeInsets.all(16.0),
-              controller: _scrollController,
+              controller: controller.scrollController,
               itemCount: controller.shops.length,
               itemBuilder: (context, index) {
                 final shopData = controller.shops[index];
                 return GestureDetector(
                   onTap: () {
-                      AttendanceBindings().dependencies();
+                    AttendanceBindings().dependencies();
                     Get.to(() => AttendancePage(shop: shopData));
                   },
                   child: ShopItem(shop: shopData),
@@ -48,9 +48,16 @@ class HomePage extends GetView<ShopController> {
     );
   }
 
-  void _scrollListener() {
-    if (_scrollController.position.extentAfter < 500) {
-      controller.loadMore();
-    }
-  }
+  // void _scrollListener() {
+  //   //prin
+  //   // if (_scrollController.position.extentAfter < 500) {
+  //   //   controller.loadMore();
+  //   // }
+
+  //   if (_scrollController.position.pixels ==
+  //       _scrollController.position.maxScrollExtent) {
+  //     controller.loadMore();
+  //   }
+  // }
+
 }
